@@ -72,14 +72,16 @@ def temps_start(start):
 	query = (f'SELECT AVG(tobs) AS "Average Temp", MIN(tobs) \
         	AS "Minimum Temp", MAX(tobs) AS "Maximum Temp" \
         	FROM measurement WHERE date >= "{start}"')
-	return jsonify(pd.read_sql(query, engine).to_dict(orient='records'))
+	df = pd.read_sql(query, engine).to_dict(orient='records')
+	return jsonify(df)
 
 @app.route("/api/v1.0/temp/<start>/<end>")
 def temps_startAndEnd(start, end):
     query = (f'SELECT AVG(tobs) AS "Average Temp", MIN(tobs) \
-            AS "Minimum Temp", MAX(tobs) AS "Maximum Temp" \
-            FROM measurement WHERE date >= "{start}" AND date <= "{end}"')
-    return jsonify(pd.read_sql(query, engine).to_dict(orient='records')); 
+			AS "Minimum Temp", MAX(tobs) AS "Maximum Temp" \
+			FROM measurement WHERE date >= "{start}" AND date <= "{end}"')
+	df = pd.read_sql(query, engine).to_dict(orient='records')
+	return jsonify(df)
 
 
 if __name__ == "__main__":
