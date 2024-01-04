@@ -54,8 +54,9 @@ def precipitation():
 
 @app.route("/api/v1.0/stations")
 def stations():
-	query = 'SELECT station, name FROM station'
-	return jsonify(pd.read_sql(query, engine).to_dict(orient='records'))
+    results = session.query(Station.station).all()
+    stations = list(np.ravel(results))
+    return jsonify(stations=stations)
 
 @app.route("/api/v1.0/tobs")
 def temp_monthly():
