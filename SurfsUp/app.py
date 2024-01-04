@@ -78,8 +78,8 @@ def temps_start(start):
 @app.route("/api/v1.0/temp/<start>/<end>")
 def temps_startAndEnd(start, end):
 	query = (f'SELECT AVG(tobs) AS "Average Temp", MIN(tobs) \
-			AS "Minimum Temp", MAX(tobs) AS "Maximum Temp" \
-			FROM measurement WHERE date >= "{start}" AND date <= "{end}"')
+		AS "Minimum Temp", MAX(tobs) AS "Maximum Temp" \
+		FROM measurement WHERE date >= "{start}" AND date <= "{end}"')
 	df = pd.read_sql(query, engine).to_dict(orient='records')
 	return jsonify(df)
 
